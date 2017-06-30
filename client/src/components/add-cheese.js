@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {postCheese} from '../actions/cheese';
 
 class AddCheese extends Component {
-    
     addCheese(event) {
         event.preventDefault();
         const cheese = this.input.value;
         this.props.dispatch(postCheese(cheese));
+        this.input.value = '';
     }
 
     render () {

@@ -10,7 +10,6 @@ class CheeseList extends Component {
 
 
  render() {
-   console.log(this.props);
    const cheeses = this.props.cheeses.map((cheese, index) =>
        <li key={index}>
            {cheese}

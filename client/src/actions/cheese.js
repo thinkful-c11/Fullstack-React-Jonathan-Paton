@@ -38,9 +38,9 @@ export const postCheese = cheese => dispatch => {
   dispatch(fetchCheeseRequest());
 
   return fetch(url, {
-    method: 'post', 
-    headers: { 
-      'Accept': 'application/json, text/plain, /', 
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, /',
       'Content-Type': 'application/json' },
     body: JSON.stringify({cheese})
   }).then(response => {
