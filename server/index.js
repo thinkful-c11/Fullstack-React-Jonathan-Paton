@@ -2,7 +2,7 @@
 
 const path = require('path');
 const express = require('express');
-
+const bodyParser = require('body-parser');
 const app = express();
 
 // API endpoints go here!
@@ -10,7 +10,7 @@ const app = express();
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
-
+app.use(bodyParser.json());
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
 app.get(/^(?!\/api(\/|$))/, (req, res) => {
@@ -43,8 +43,9 @@ app.get('/api/cheeses', (req, res) => {
 });
 
 app.post('/api/cheeses', (req, res) => {
-    cheeses.push(req.body.cheese);
-    return res.status(201);
+  cheeses.push(req.body.cheese);
+  return res.status(201).json(cheeses);
+  //hello
 });
 
 let server;
@@ -60,8 +61,8 @@ function closeServer() {
   return new Promise((resolve, reject) => {
     server.close(err => {
       if (err) {
-          return reject(err);
-        }
+        return reject(err);
+      }
       resolve();
     });
   });
