@@ -18,46 +18,52 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
   res.sendFile(index);
 });
 
+const cheeses = [
+  'Bath Blue',
+  'Barkham Blue',
+  'Buxton Blue',
+  'Cheshire Blue',
+  'Devon Blue',
+  'Dorset Blue Vinney',
+  'Dovedale',
+  'Exmoor Blue',
+  'Harbourne Blue',
+  'Lanark Blue',
+  'Lymeswold',
+  'Oxford Blue',
+  'Shropshire Blue',
+  'Stichelton',
+  'Stilton',
+  'Blue Wensleydale',
+  'Yorkshire Blue'
+];
+
 app.get('/api/cheeses', (req, res) => {
-  const cheeses = [
-    'Bath Blue',
-    'Barkham Blue',
-    'Buxton Blue',
-    'Cheshire Blue',
-    'Devon Blue',
-    'Dorset Blue Vinney',
-    'Dovedale',
-    'Exmoor Blue',
-    'Harbourne Blue',
-    'Lanark Blue',
-    'Lymeswold',
-    'Oxford Blue',
-    'Shropshire Blue',
-    'Stichelton',
-    'Stilton',
-    'Blue Wensleydale',
-    'Yorkshire Blue'
-  ];
   return res.json(cheeses);
+});
+
+app.post('/api/cheeses', (req, res) => {
+    cheeses.push(req.body.cheese);
+    return res.status(201);
 });
 
 let server;
 function runServer(port=3001) {
   return new Promise((resolve, reject) => {
     server = app.listen(port, () => {
-        resolve();
-      }).on('error', reject);
+      resolve();
+    }).on('error', reject);
   });
 }
 
 function closeServer() {
   return new Promise((resolve, reject) => {
     server.close(err => {
-        if (err) {
-            return reject(err);
-          }
-        resolve();
-      });
+      if (err) {
+          return reject(err);
+        }
+      resolve();
+    });
   });
 }
 

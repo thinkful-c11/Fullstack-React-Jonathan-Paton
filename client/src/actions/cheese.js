@@ -31,3 +31,26 @@ export const fetchCheeses = () => dispatch => {
       dispatch(fetchCheeseError(error))
     );
 };
+
+export const postCheese = cheese => dispatch => {
+  const url = 'https://cheese-list-fullstack.herokuapp.com/api/cheeses';
+
+  dispatch(fetchCheeseRequest());
+
+  return fetch(url, {
+    method: 'post', 
+    headers: { 
+      'Accept': 'application/json, text/plain, /', 
+      'Content-Type': 'application/json' },
+    body: JSON.stringify({cheese})
+  }).then(response => {
+    if(!response.ok) {
+      return Promise.reject(response.statusText);
+    }
+    return response.json();
+  }).then(cheeses => {
+    return dispatch(fetchCheeseSuccess(cheeses));
+  }).catch(error =>
+      dispatch(fetchCheeseError(error))
+    );
+};
