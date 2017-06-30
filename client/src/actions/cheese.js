@@ -16,7 +16,7 @@ export const fetchCheeseError = error => ({
 });
 
 export const fetchCheeses = () => dispatch => {
-  const url = 'http://localhost:8080/api/cheeses';
+  const url = 'https://cheese-list-fullstack.herokuapp.com/api/cheeses';
 
   dispatch(fetchCheeseRequest());
 
